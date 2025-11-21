@@ -12,6 +12,7 @@ function WindowSizeTracker() {
 
     return () => {
       window.addEventListener("resize", handleResize);
+      console.log("Unsubscribed from resize event");
     };
   }, []);
 
