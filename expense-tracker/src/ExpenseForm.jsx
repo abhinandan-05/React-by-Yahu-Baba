@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function ExpenseForm({ onAddExpense }) {
   const [title, SetTitle] = useState("");
   const [amount, setAmount] = useState("");
+  const titleRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,16 +15,20 @@ function ExpenseForm({ onAddExpense }) {
       amount: parseFloat(amount),
     };
 
-    onAddExpense()
+    onAddExpense(newExpense);
+    SetTitle("");
+    setAmount("");
+    titleRef.current.focus();
   };
   return (
     <div>
-      <form class="expense-form" onSubmit={handleSubmit}>
+      <form className="expense-form" onSubmit={handleSubmit}>
         <input
           placeholder="Expense Title"
           type="text"
           value={title}
           onChange={(e) => SetTitle(e.target.value)}
+          ref={titleRef}
         />
         <input
           placeholder="Amount ₹"
